@@ -3,12 +3,7 @@ local icons = require('icons')
 return {
   "williamboman/mason-lspconfig.nvim",
   dependencies = {
-    'hrsh7th/nvim-cmp',
     'williamboman/mason.nvim',
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-nvim-lsp',
-    'rafamadriz/friendly-snippets',
   },
   config = function()
     require('mason').setup()

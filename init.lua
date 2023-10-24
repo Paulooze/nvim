@@ -20,8 +20,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -36,55 +34,6 @@ require('lazy').setup({
     },
   },
   {
-    'nvimtools/none-ls.nvim',
-    config = function()
-      local none_ls = require('null-ls')
-      none_ls.setup({
-        on_attach = function(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.format({
-                  timeout_ms = 5000,
-                  bufnr = bufnr,
-                  filter = function(client)
-                    return client.name == "null-ls"
-                  end,
-                })
-              end,
-            })
-          end
-        end,
-        debug = true,
-        sources = {
-          none_ls.builtins.formatting.eslint,
-          none_ls.builtins.diagnostics.eslint,
-          none_ls.builtins.code_actions.eslint,
-          none_ls.builtins.formatting.prettier.with({
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-              "css",
-              "scss",
-              "html",
-              "json",
-              "yaml",
-              "markdown",
-              "graphql",
-              "md",
-              "txt",
-            },
-          })
-        },
-      })
-    end
-  },
-  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'L3MON4D3/LuaSnip',
@@ -94,130 +43,18 @@ require('lazy').setup({
     },
   },
   {
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
-        local gs = package.loaded.gitsigns
-        vim.keymap.set({ 'n', 'v' }, ']c', function()
-          if vim.wo.diff then
-            return ']c'
-          end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-        vim.keymap.set({ 'n', 'v' }, '[c', function()
-          if vim.wo.diff then
-            return '[c'
-          end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
-      end,
-    },
-  },
-
-  {
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
   },
-
-  {
-    'nvim-lualine/lualine.nvim',
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'onedark',
-        globalstatus = true,
-        component_separators = {
-          left = icons.ui.DividerRight,
-          right = icons.ui.DividerLeft,
-        },
-        section_separators = {
-          left = icons.ui.BoldDividerRight,
-          right = icons.ui.BoldDividerLeft,
-        },
-      },
-      sections = {
-        lualine_x = {
-          "diagnostics",
-          sources = { "nvim_diagnostic" },
-          symbols = {
-            error = icons.diagnostics.BoldError .. " ",
-            warn = icons.diagnostics.BoldWarning .. " ",
-            info = icons.diagnostics.BoldInformation .. " ",
-            hint = icons.diagnostics.BoldHint .. " ",
-          },
-        }
-      }
-    },
-  },
-
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {},
   },
   { 'numToStr/Comment.nvim', opts = {} },
-  {
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-    },
-    config = function()
-      require('telescope').setup({
-        defaults = {
-          mappings = {
-            i = {
-              ['<C-u>'] = false,
-              ['<C-d>'] = false,
-            },
-          },
-        },
-      })
-
-      pcall(require('telescope').load_extension, 'fzf')
-    end
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          'astro', 'css', 'glimmer', 'graphql', 'html', 'javascript',
-          'lua', 'nix', 'php', 'python', 'scss', 'svelte', 'tsx', 'twig',
-          'typescript', 'vim', 'vue',
-        }
-      })
-    end,
-    build = ':TSUpdate',
-  },
   require('plugins')
 }, {})
 
@@ -245,6 +82,8 @@ vim.keymap.set('n', '<C-Up>', ':resize -2<CR>')
 vim.keymap.set('n', '<C-Down>', ':resize +2<CR>')
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
+vim.api.nvim_create_user_command("BufferKill", function() require('plugins.bufferline').buf_kill("bd") end,
+  { force = true })
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -256,7 +95,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.defer_fn(function()
-  require('nvim-treesitter.configs').setup {
+  require('nvim-treesitter.configs').setup({
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
       'bash' },
@@ -319,7 +158,7 @@ vim.defer_fn(function()
         },
       },
     },
-  }
+  })
 end, 0)
 
 local on_attach = function(_, bufnr)

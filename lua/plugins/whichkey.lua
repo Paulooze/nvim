@@ -1,10 +1,9 @@
 local icons = require "icons"
-local M = {};
 
-M.setup = {
+local setup = {
   plugins = {
     marks = false,     -- shows a list of your marks on ' and `
-    registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    registers = false, -- shows your registers on " in NORlocal L or <C-r> in INSERT mode
     spelling = {
       enabled = true,
       suggestions = 20,
@@ -74,7 +73,7 @@ M.setup = {
   },
 }
 
-M.mappings = {
+local mappings = {
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>confirm q<CR>", "Quit" },
   ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
@@ -173,7 +172,7 @@ M.mappings = {
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 5000 })<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
-    I = { "<cmd>Mason<cr>", "Mason Info" },
+    I = { "<cmd>local son<cr>", "Mason Info" },
     j = {
       "<cmd>lua vim.diagnostic.goto_next()<cr>",
       "Next Diagnostic",
@@ -216,28 +215,38 @@ M.mappings = {
     i = { ":TSConfigInfo<cr>", "Info" },
   },
 }
-M.options = {
-  mode = "n",     -- NORMAL mode
+local options = {
+  mode = "n",     -- NORlocal L mode
   prefix = "<leader>",
   buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true,  -- use `silent` when creating keymaps
   noremap = true, -- use `noremap` when creating keymaps
   nowait = true,  -- use `nowait` when creating keymaps
 }
-M.vmappings = {
+local vmappings = {
   ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
   l = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
   },
 }
-M.voptions = {
-  mode = "v",           -- VISUAL mode
+local voptions = {
+  mode = "v",     -- VISUAL mode
   prefix = "<leader>",
-  buffer = nil,         -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true,        -- use `silent` when creating keymaps
-  noremap = true,       -- use `noremap` when creating keymaps
-  nowait = true,        -- use `nowait` when creating keymaps
+  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,  -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = true,  -- use `nowait` when creating keymaps
 }
 
-return M
+return {
+  'folke/which-key.nvim',
+  opts = {},
+  config = function()
+    local which_key = require('which-key')
+
+    which_key.setup(setup)
+    which_key.register(mappings, options)
+    which_key.register(vmappings, voptions)
+  end
+}

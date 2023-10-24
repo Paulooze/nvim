@@ -82,7 +82,7 @@ vim.keymap.set('n', '<C-Up>', ':resize -2<CR>')
 vim.keymap.set('n', '<C-Down>', ':resize +2<CR>')
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
-vim.api.nvim_create_user_command("BufferKill", function() require('plugins.bufferline').buf_kill("bd") end,
+vim.api.nvim_create_user_command("BufferKill", function() require('utils.buffers').buf_kill("bd") end,
   { force = true })
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

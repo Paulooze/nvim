@@ -1,17 +1,26 @@
 return {
-  require('plugins.bufferline'),
-  require('plugins.whichkey'),
+  { 'tpope/vim-sleuth' },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd.colorscheme 'tokyonight'
+    end
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    opts = {},
+  },
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+  },
   {
     "nvim-tree/nvim-web-devicons"
   },
-  require('plugins.nvimtree'),
-  require('plugins.projections'),
-  require('plugins.lir'),
-  require('plugins.treesitter'),
-  require('plugins.telescope'),
-  require('plugins.nonels'),
-  require('plugins.gitsigns'),
-  require('plugins.lualine'),
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
@@ -19,7 +28,8 @@ return {
   },
   { 'SmiteshP/nvim-navic' },
   {
-    'nvim-pack/nvim-spectre'
+    'nvim-pack/nvim-spectre',
+    event = 'VeryLazy'
   },
   {
     'RRethy/vim-illuminate',
@@ -29,18 +39,34 @@ return {
           'lsp',
           'treesitter',
           'regex'
-        }
+        },
+        filetypes_denylist = {
+          "dirvish",
+          "fugitive",
+          "alpha",
+          "NvimTree",
+          "lazy",
+          "neogitstatus",
+          "Trouble",
+          "lir",
+          "Outline",
+          "spectre_panel",
+          "toggleterm",
+          "DressingSelect",
+          "TelescopePrompt",
+        },
+        under_cursor = true,
       })
     end
   },
   {
-    'APZelos/blamer.nvim'
+    'APZelos/blamer.nvim',
   },
   {
     'simrat39/symbols-outline.nvim',
     config = function()
       require("symbols-outline").setup()
-    end
+    end,
   },
   {
     'AckslD/nvim-neoclip.lua',
@@ -63,5 +89,4 @@ return {
       })
     end
   },
-  { 'akinsho/toggleterm.nvim' }
 }

@@ -172,7 +172,7 @@ local mappings = {
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 5000 })<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
-    I = { "<cmd>local son<cr>", "Mason Info" },
+    I = { "<cmd>Mason<cr>", "Mason Info" },
     j = {
       "<cmd>lua vim.diagnostic.goto_next()<cr>",
       "Next Diagnostic",
@@ -248,5 +248,6 @@ return {
     which_key.setup(setup)
     which_key.register(mappings, options)
     which_key.register(vmappings, voptions)
-  end
+  end,
+  event = 'VeryLazy'
 }

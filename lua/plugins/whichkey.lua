@@ -86,6 +86,7 @@ local mappings = {
   },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+  ['v'] = { "<cmd>Telescope neoclip<CR>", "Telescope neoclip" },
   b = {
     name = "Buffers",
     j = { "<cmd>BufferLinePick<cr>", "Jump" },

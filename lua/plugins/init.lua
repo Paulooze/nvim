@@ -32,34 +32,6 @@ return {
     event = 'VeryLazy'
   },
   {
-    'RRethy/vim-illuminate',
-    config = function()
-      require('illuminate').configure({
-        providers = {
-          'lsp',
-          'treesitter',
-          'regex'
-        },
-        filetypes_denylist = {
-          "dirvish",
-          "fugitive",
-          "alpha",
-          "NvimTree",
-          "lazy",
-          "neogitstatus",
-          "Trouble",
-          "lir",
-          "Outline",
-          "spectre_panel",
-          "toggleterm",
-          "DressingSelect",
-          "TelescopePrompt",
-        },
-        under_cursor = true,
-      })
-    end
-  },
-  {
     'APZelos/blamer.nvim',
   },
   {
@@ -76,7 +48,6 @@ return {
     config = function()
       require('neoclip').setup()
       require('telescope').load_extension('neoclip')
-      vim.keymap.set("n", "<leader>v", function() vim.cmd("Telescope neoclip") end)
     end
   },
   {

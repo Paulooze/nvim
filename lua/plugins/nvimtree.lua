@@ -11,7 +11,6 @@ local function nvim_tree_on_attach(bufnr)
 
   vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
   vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-  vim.keymap.set("n", "<leader>e", function() vim.cmd("NvimTreeToggle") end)
 end
 
 return {
@@ -72,7 +71,7 @@ return {
             },
           },
         },
-        special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+        special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", "package.json" },
         symlink_destination = true,
       },
       hijack_directories = {

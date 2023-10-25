@@ -18,6 +18,10 @@ require('lazy').setup({
   import = 'plugins'
 })
 
+if vim.g.neovide then
+  vim.o.guifont = "Fira Code:h14"
+end
+
 vim.opt.termguicolors = true
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -50,10 +54,10 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 vim.api.nvim_create_user_command("BufferKill", function() require('utils.buffers').buf_kill("bd") end,
   { force = true })
 
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', {})
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({ higroup = 'Search', timeout = 100 })
   end,
   group = highlight_group,
   pattern = '*',

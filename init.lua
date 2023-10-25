@@ -1,5 +1,8 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -14,9 +17,6 @@ require('lazy').setup({ import = 'plugins' })
 
 if vim.g.neovide then vim.o.guifont = "Hack:h12" end
 
-vim.opt.termguicolors = true
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 vim.wo.number = true
 vim.opt.cursorline = true
 vim.o.hlsearch = false

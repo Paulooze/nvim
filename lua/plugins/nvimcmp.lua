@@ -1,7 +1,8 @@
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
-    'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp'
+    'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer'
   },
   config = function()
     local cmp = require('cmp')
@@ -11,6 +12,7 @@ return {
     cmp.setup({
       enabled = true,
       snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+      completion = { completeopt = 'menu,menuone,insert' },
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered()
@@ -22,8 +24,9 @@ return {
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = true })
       }),
-      sources = cmp.config.sources({ { name = 'nvim_lsp' }, { name = 'luasnip' } },
-        { { name = 'buffer' } })
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' }, { name = 'luasnip' }, { name = 'buffer' }
+      }, { { name = 'buffer' } })
     })
   end
 }

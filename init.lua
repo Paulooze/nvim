@@ -12,7 +12,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({ import = 'plugins' })
 
-if vim.g.neovide then vim.o.guifont = "Fira Code:h14" end
+if vim.g.neovide then vim.o.guifont = "Hack:h12" end
 
 vim.opt.termguicolors = true
 vim.g.mapleader = ' '

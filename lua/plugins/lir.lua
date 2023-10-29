@@ -48,6 +48,5 @@ return {
       },
       hide_cursor = false
     })
-  end,
-  event = 'VeryLazy'
+  end
 }

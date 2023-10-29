@@ -71,5 +71,6 @@ return {
       mapping = cmp.mapping.preset.cmdline(),
       sources = { { name = 'buffer' } }
     })
-  end
+  end,
+  event = 'VeryLazy'
 }

@@ -1,7 +1,7 @@
-local icons = require('icons');
+local icons = require("utils.icons")
 
 local function nvim_tree_on_attach(bufnr)
-  local api = require("nvim-tree.api");
+  local api = require("nvim-tree.api")
 
   local function opts(desc)
     return {
@@ -9,11 +9,11 @@ local function nvim_tree_on_attach(bufnr)
       buffer = bufnr,
       noremap = true,
       silent = true,
-      nowait = true
+      nowait = true,
     }
   end
 
-  api.config.mappings.default_on_attach(bufnr);
+  api.config.mappings.default_on_attach(bufnr)
 
   vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
   vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
@@ -23,7 +23,7 @@ return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    require('nvim-tree').setup({
+    require("nvim-tree").setup({
       renderer = {
         add_trailing = false,
         group_empty = false,
@@ -35,7 +35,7 @@ return {
         indent_markers = {
           enable = false,
           inline_arrows = true,
-          icons = { corner = "└", edge = "│", item = "│", none = " " }
+          icons = { corner = "└", edge = "│", item = "│", none = " " },
         },
         icons = {
           webdev_colors = true,
@@ -55,7 +55,7 @@ return {
               empty = icons.ui.EmptyFolder,
               empty_open = icons.ui.EmptyFolderOpen,
               symlink = icons.ui.FolderSymlink,
-              symlink_open = icons.ui.FolderOpen
+              symlink_open = icons.ui.FolderOpen,
             },
             git = {
               unstaged = icons.git.FileUnstaged,
@@ -64,21 +64,25 @@ return {
               renamed = icons.git.FileRenamed,
               untracked = icons.git.FileUntracked,
               deleted = icons.git.FileDeleted,
-              ignored = icons.git.FileIgnored
-            }
-          }
+              ignored = icons.git.FileIgnored,
+            },
+          },
         },
         special_files = {
-          "Cargo.toml", "Makefile", "README.md", "readme.md", "package.json"
+          "Cargo.toml",
+          "Makefile",
+          "README.md",
+          "readme.md",
+          "package.json",
         },
-        symlink_destination = true
+        symlink_destination = true,
       },
       hijack_directories = { enable = false, auto_open = true },
       update_focused_file = {
         enable = true,
         debounce_delay = 15,
         update_root = true,
-        ignore_list = {}
+        ignore_list = {},
       },
       diagnostics = {
         enable = true,
@@ -87,33 +91,33 @@ return {
         debounce_delay = 50,
         severity = {
           min = vim.diagnostic.severity.HINT,
-          max = vim.diagnostic.severity.ERROR
+          max = vim.diagnostic.severity.ERROR,
         },
         icons = {
           hint = icons.diagnostics.BoldHint,
           info = icons.diagnostics.BoldInformation,
           warning = icons.diagnostics.BoldWarning,
-          error = icons.diagnostics.BoldError
-        }
+          error = icons.diagnostics.BoldError,
+        },
       },
       filters = {
         dotfiles = false,
         git_clean = false,
         no_buffer = false,
         custom = { "node_modules", "\\.cache" },
-        exclude = {}
+        exclude = {},
       },
       filesystem_watchers = {
         enable = true,
         debounce_delay = 50,
-        ignore_dirs = {}
+        ignore_dirs = {},
       },
       git = {
         enable = true,
         ignore = false,
         show_on_dirs = true,
         show_on_open_dirs = true,
-        timeout = 200
+        timeout = 200,
       },
       actions = {
         use_system_clipboard = true,
@@ -125,8 +129,8 @@ return {
             row = 1,
             relative = "cursor",
             border = "shadow",
-            style = "minimal"
-          }
+            style = "minimal",
+          },
         },
         open_file = {
           quit_on_open = false,
@@ -137,13 +141,18 @@ return {
             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
             exclude = {
               filetype = {
-                "notify", "lazy", "qf", "diff", "fugitive", "fugitiveblame"
+                "notify",
+                "lazy",
+                "qf",
+                "diff",
+                "fugitive",
+                "fugitiveblame",
               },
-              buftype = { "nofile", "terminal", "help" }
-            }
-          }
+              buftype = { "nofile", "terminal", "help" },
+            },
+          },
         },
-        remove_file = { close_window = true }
+        remove_file = { close_window = true },
       },
       trash = { cmd = "trash", require_confirm = true },
       live_filter = { prefix = "[FILTER]: ", always_show_folders = true },
@@ -160,11 +169,11 @@ return {
           diagnostics = false,
           git = false,
           profile = false,
-          watcher = false
-        }
+          watcher = false,
+        },
       },
       system_open = { cmd = nil, args = {} },
-      on_attach = nvim_tree_on_attach
+      on_attach = nvim_tree_on_attach,
     })
-  end
+  end,
 }

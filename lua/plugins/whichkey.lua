@@ -1,90 +1,76 @@
-local icons = require "icons"
+local icons = require("utils.icons")
 
 local setup = {
   plugins = {
-    marks = false,                                 -- shows a list of your marks on ' and `
-    registers = false,                             -- shows your registers on " in NORlocal L or <C-r> in INSERT mode
-    spelling = { enabled = true, suggestions = 20 }, -- use which-key for spelling hints
-    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-    -- No actual key bindings are created
+    marks = false,
+    registers = false,
+    spelling = { enabled = true, suggestions = 20 },
     presets = {
-      operators = false,    -- adds help for operators like d, y, ...
-      motions = false,      -- adds help for motions
-      text_objects = false, -- help for text objects triggered after entering an operator
-      windows = false,      -- default bindings on <c-w>
-      nav = false,          -- misc bindings to work with windows
-      z = false,            -- bindings for folds, spelling and others prefixed with z
-      g = false             -- bindings for prefixed with g
-    }
+      operators = false,
+      motions = false,
+      text_objects = false,
+      windows = false,
+      nav = false,
+      z = false,
+      g = false,
+    },
   },
-  -- add operators that will trigger motion and text object completion
-  -- to enable all native operators, set the preset / operators plugin above
   operators = { gc = "Comments" },
-  key_labels = {
-    -- override the label used to display some keys. It doesn't effect WK in any other way.
-    -- For example:
-    -- ["<space>"] = "SPC",
-    -- ["<cr>"] = "RET",
-    -- ["<tab>"] = "TAB",
-  },
+  key_labels = {},
   icons = {
-    breadcrumb = icons.ui.DoubleChevronRight, -- symbol used in the command line area that shows your active key combo
-    separator = icons.ui.BoldArrowRight,      -- symbol used between a key and it's label
-    group = icons.ui.Plus                     -- symbol prepended to a group
+    breadcrumb = icons.ui.DoubleChevronRight,
+    separator = icons.ui.BoldArrowRight,
+    group = icons.ui.Plus,
   },
   popup_mappings = {
-    scroll_down = "<c-d>", -- binding to scroll down inside the popup
-    scroll_up = "<c-u>"    -- binding to scroll up inside the popup
+    scroll_down = "<c-d>",
+    scroll_up = "<c-u>",
   },
   window = {
-    border = "single",      -- none, single, double, shadow
-    position = "bottom",    -- bottom, top
-    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-    winblend = 0
+    border = "single",
+    position = "bottom",
+    margin = { 1, 0, 1, 0 },
+    padding = { 2, 2, 2, 2 },
+    winblend = 0,
   },
   layout = {
-    height = { min = 4, max = 25 },                                           -- min and max height of the columns
-    width = { min = 20, max = 50 },                                           -- min and max width of the columns
-    spacing = 3,                                                              -- spacing between columns
-    align = "left"                                                            -- align columns left, center or right
+    height = { min = 4, max = 25 },
+    width = { min = 20, max = 50 },
+    spacing = 3,
+    align = "left",
   },
-  ignore_missing = true,                                                      -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-  show_help = true,                                                           -- show help message on the command line when the popup is visible
-  show_keys = true,                                                           -- show the currently pressed key and its label as a message in the command line
-  triggers = "auto",                                                          -- automatically setup triggers
-  -- triggers = {"<leader>"} -- or specify a list manually
+  ignore_missing = true,
+  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
+  show_help = true,
+  show_keys = true,
+  triggers = "auto",
   triggers_blacklist = {
-    -- list of mode / prefixes that should never be hooked by WhichKey
-    -- this is mostly relevant for key maps that start with a native binding
-    -- most people should not need to change this
     i = { "j", "k" },
-    v = { "j", "k" }
+    v = { "j", "k" },
   },
-  -- disable the WhichKey popup for certain buf types and file types.
-  -- Disabled by default for Telescope
-  disable = { buftypes = {}, filetypes = { "TelescopePrompt" } }
+  disable = { buftypes = {}, filetypes = { "TelescopePrompt" } },
 }
 
 local mappings = {
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>confirm q<CR>", "Quit" },
   ["/"] = {
-    "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line"
+    "<Plug>(comment_toggle_linewise_current)",
+    "Comment toggle current line",
   },
   ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
   ["f"] = {
     function()
-      require("lvim.core.telescope.custom-finders").find_project_files {
-        previewer = false
-      }
-    end, "Find File"
+      require("telescope.builtin").find_files({
+        previewer = false,
+      })
+    end,
+    "Find File",
   },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-  ['v'] = { "<cmd>Telescope neoclip<CR>", "Telescope neoclip" },
-  ['o'] = { "<cmd>Telescope projections<CR>", "Telescope projections" },
+  ["v"] = { "<cmd>Telescope neoclip<CR>", "Telescope neoclip" },
+  ["o"] = { "<cmd>Telescope projections<CR>", "Telescope projections" },
   b = {
     name = "Buffers",
     j = { "<cmd>BufferLinePick<cr>", "Jump" },
@@ -96,7 +82,7 @@ local mappings = {
     h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
     l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
     D = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
-    L = { "<cmd>BufferLineSortByExtension<cr>", "Sort by language" }
+    L = { "<cmd>BufferLineSortByExtension<cr>", "Sort by language" },
   },
   d = {
     name = "Debug",
@@ -113,7 +99,7 @@ local mappings = {
     r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
     s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
     q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
-    U = { "<cmd>lua require'dapui'.toggle({reset = true})<cr>", "Toggle UI" }
+    U = { "<cmd>lua require'dapui'.toggle({reset = true})<cr>", "Toggle UI" },
   },
   p = {
     name = "Plugins",
@@ -124,18 +110,18 @@ local mappings = {
     u = { "<cmd>Lazy update<cr>", "Update" },
     p = { "<cmd>Lazy profile<cr>", "Profile" },
     l = { "<cmd>Lazy log<cr>", "Log" },
-    d = { "<cmd>Lazy debug<cr>", "Debug" }
+    d = { "<cmd>Lazy debug<cr>", "Debug" },
   },
   g = {
     name = "Git",
-    g = { "<cmd>lua require 'lazygit'.lazygit_toggle()<cr>", "Lazygit" },
+    g = { "<cmd>lua require 'utils.lazygit'.lazygit_toggle()<cr>", "Lazygit" },
     j = {
       "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>",
-      "Next Hunk"
+      "Next Hunk",
     },
     k = {
       "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>",
-      "Prev Hunk"
+      "Prev Hunk",
     },
     l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
     p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
@@ -147,14 +133,14 @@ local mappings = {
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
-    d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Git Diff" }
+    d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Git Diff" },
   },
   l = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = {
       "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>",
-      "Buffer Diagnostics"
+      "Buffer Diagnostics",
     },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
@@ -167,9 +153,10 @@ local mappings = {
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = {
-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols"
+      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+      "Workspace Symbols",
     },
-    e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" }
+    e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
   },
   s = {
     name = "Search",
@@ -187,46 +174,47 @@ local mappings = {
     l = { "<cmd>Telescope resume<cr>", "Resume last search" },
     p = {
       "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>",
-      "Colorscheme with Preview"
-    }
+      "Colorscheme with Preview",
+    },
   },
-  T = { name = "Treesitter", i = { ":TSConfigInfo<cr>", "Info" } }
+  T = { name = "Treesitter", i = { ":TSConfigInfo<cr>", "Info" } },
 }
 local options = {
-  mode = "n",     -- NORlocal L mode
+  mode = "n",
   prefix = "<leader>",
-  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true,  -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true   -- use `nowait` when creating keymaps
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = true,
 }
 local vmappings = {
   ["/"] = {
-    "<Plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)"
+    "<Plug>(comment_toggle_linewise_visual)",
+    "Comment toggle linewise (visual)",
   },
   l = {
     name = "LSP",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" }
-  }
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+  },
 }
 local voptions = {
-  mode = "v",     -- VISUAL mode
+  mode = "v",
   prefix = "<leader>",
-  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true,  -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true   -- use `nowait` when creating keymaps
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = true,
 }
 
 return {
-  'folke/which-key.nvim',
+  "folke/which-key.nvim",
   opts = {},
   config = function()
-    local which_key = require('which-key')
+    local which_key = require("which-key")
 
     which_key.setup(setup)
     which_key.register(mappings, options)
     which_key.register(vmappings, voptions)
   end,
-  event = 'VeryLazy'
+  event = "VeryLazy",
 }

@@ -2,7 +2,7 @@ return {
   'gnikdroy/projections.nvim',
   config = function()
     require("projections").setup({
-      workspaces = { { "~/Projects", { ".git", "package.json" } } }
+      workspaces = { { "~/Projects", { ".git", "package.json", "Cargo.toml" } } }
     })
     require("telescope").load_extension("projections")
 

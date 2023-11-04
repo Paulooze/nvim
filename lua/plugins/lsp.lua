@@ -7,9 +7,21 @@ return {
     "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim"
   },
   config = function()
-    require("mason").setup()
+    require("mason").setup({
+      ui = {
+        icons = {
+          package_installed = "",
+          package_pending = "",
+          package_uninstalled = ""
+        }
+      }
+    })
     require("mason-lspconfig").setup()
-    require("mason-null-ls").setup({ handlers = {} })
+    require("mason-null-ls").setup({
+      ensure_installed = { "eslint_d", "prettierd" },
+      automatic_installation = true,
+      handlers = {}
+    })
     require("null-ls").setup({
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -24,7 +36,6 @@ return {
     require('neodev').setup();
 
     local mason_lspconfig = require("mason-lspconfig")
-
     local servers = {
       rust_analyzer = {},
       tsserver = {},
@@ -38,6 +49,7 @@ return {
       }
     }
     local capabilities = vim.lsp.protocol.make_client_capabilities()
+
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     mason_lspconfig.setup({
@@ -48,7 +60,6 @@ return {
     local on_attach = function(_, bufnr)
       local nmap = function(keys, func, desc)
         if desc then desc = "LSP: " .. desc end
-
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
       end
 

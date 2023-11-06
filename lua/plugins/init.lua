@@ -1,4 +1,6 @@
 return {
+  { "williamboman/mason.nvim" }, { "jay-babu/mason-null-ls.nvim" },
+  { "nvimtools/none-ls.nvim" }, { "neovim/nvim-lspconfig" }, { "folke/neodev.nvim" },
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",

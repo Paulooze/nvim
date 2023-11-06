@@ -2,10 +2,6 @@ local icons = require("utils.icons")
 
 return {
   "williamboman/mason-lspconfig.nvim",
-  dependencies = {
-    "williamboman/mason.nvim", "jay-babu/mason-null-ls.nvim",
-    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim"
-  },
   config = function()
     require("mason").setup({
       ui = {

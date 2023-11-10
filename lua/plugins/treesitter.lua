@@ -21,5 +21,5 @@ return {
     })
   end,
   build = ":TSUpdate",
-  event = 'VeryLazy'
+  event = "VeryLazy"
 }

@@ -4,8 +4,7 @@ return {
   "williamboman/mason-lspconfig.nvim",
   dependencies = {
     "williamboman/mason.nvim", "jay-babu/mason-null-ls.nvim",
-    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim",
-    "hinell/lsp-timeout.nvim"
+    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim"
   },
   config = function()
     require("mason").setup({
@@ -19,17 +18,17 @@ return {
     })
     require("mason-lspconfig").setup()
     require("mason-null-ls").setup({
-      ensure_installed = {"eslint_d", "prettierd"},
+      ensure_installed = { "eslint_d", "prettierd" },
       automatic_installation = true,
       handlers = {}
     })
     require("null-ls").setup({
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({buffer = bufnr})
+          vim.api.nvim_clear_autocmds({ buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
-            callback = function() vim.lsp.buf.format({bufnr = bufnr}) end
+            callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end
           })
         end
       end
@@ -41,11 +40,11 @@ return {
       rust_analyzer = {},
       tsserver = {},
       graphql = {},
-      html = {filetypes = {"html", "twig", "hbs"}},
+      html = { filetypes = { "html", "twig", "hbs" } },
       lua_ls = {
         Lua = {
-          workspace = {checkThirdParty = false},
-          telemetry = {enable = false}
+          workspace = { checkThirdParty = false },
+          telemetry = { enable = false }
         }
       }
     }
@@ -93,7 +92,7 @@ return {
     local on_attach = function(client, bufnr)
       local nmap = function(keys, func, desc)
         if desc then desc = "LSP: " .. desc end
-        vim.keymap.set("n", keys, func, {buffer = bufnr, desc = desc})
+        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
       end
 
       navic.attach(client, bufnr)
@@ -101,35 +100,35 @@ return {
       nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
       nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
       nmap("gd", require("telescope.builtin").lsp_definitions,
-           "[G]oto [D]efinition")
+        "[G]oto [D]efinition")
       nmap("gr", require("telescope.builtin").lsp_references,
-           "[G]oto [R]eferences")
+        "[G]oto [R]eferences")
       nmap("gI", require("telescope.builtin").lsp_implementations,
-           "[G]oto [I]mplementation")
+        "[G]oto [I]mplementation")
       nmap("<leader>D", require("telescope.builtin").lsp_type_definitions,
-           "Type [D]efinition")
+        "Type [D]efinition")
       nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols,
-           "[D]ocument [S]ymbols")
+        "[D]ocument [S]ymbols")
       nmap("K", require("hover").hover, "Hover Documentation")
       nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
       vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
         vim.lsp.buf.format()
-      end, {desc = "Format current buffer with LSP"})
+      end, { desc = "Format current buffer with LSP" })
 
       local function set_handler_opts_if_not_set(name, handler, opts)
         if debug.getinfo(vim.lsp.handlers[name], "S").source:find(vim.env
-                                                                    .VIMRUNTIME,
-                                                                  1, true) then
+              .VIMRUNTIME,
+              1, true) then
           vim.lsp.handlers[name] = vim.lsp.with(handler, opts)
         end
       end
 
       set_handler_opts_if_not_set("textDocument/hover", vim.lsp.handlers.hover,
-                                  {border = "rounded"})
+        { border = "rounded" })
       set_handler_opts_if_not_set("textDocument/signatureHelp",
-                                  vim.lsp.handlers.signature_help,
-                                  {border = "rounded"})
+        vim.lsp.handlers.signature_help,
+        { border = "rounded" })
 
       -- Enable rounded borders in :LspInfo window.
       require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -154,7 +153,7 @@ return {
     }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
   end,
   event = 'VeryLazy'

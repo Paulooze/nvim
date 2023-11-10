@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ import = "plugins" })
 
-if vim.g.neovide then vim.o.guifont = "Hack:h12" end
+if vim.g.neovide then vim.o.guifont = "Monaspace_Argon_Var:h12" end
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2

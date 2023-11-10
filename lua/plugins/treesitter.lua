@@ -5,7 +5,7 @@ return {
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
         "go", "lua", "rust", "tsx", "javascript", "typescript", "vimdoc", "vim",
-        "bash"
+        "bash", "regex", "markdown", "markdown_inline"
       },
       modules = {},
       sync_install = false,

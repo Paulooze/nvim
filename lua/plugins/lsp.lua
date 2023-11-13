@@ -4,7 +4,8 @@ return {
   "williamboman/mason-lspconfig.nvim",
   dependencies = {
     "williamboman/mason.nvim", "jay-babu/mason-null-ls.nvim",
-    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim"
+    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim",
+    "hinell/lsp-timeout.nvim"
   },
   config = function()
     require("mason").setup({
@@ -60,32 +61,32 @@ return {
     local navic = require("nvim-navic")
     navic.setup({
       icons = {
-        File = ' ',
-        Module = ' ',
-        Namespace = ' ',
-        Package = ' ',
-        Class = ' ',
-        Method = ' ',
-        Property = ' ',
-        Field = ' ',
-        Constructor = ' ',
-        Enum = ' ',
-        Interface = ' ',
-        Function = ' ',
-        Variable = ' ',
-        Constant = ' ',
-        String = ' ',
-        Number = ' ',
-        Boolean = ' ',
-        Array = ' ',
-        Object = ' ',
-        Key = ' ',
-        Null = ' ',
-        EnumMember = ' ',
-        Struct = ' ',
-        Event = ' ',
-        Operator = ' ',
-        TypeParameter = ' '
+        File = "󰈙 ",
+        Module = " ",
+        Namespace = "󰌗 ",
+        Package = " ",
+        Class = "󰌗 ",
+        Method = "󰆧 ",
+        Property = " ",
+        Field = " ",
+        Constructor = " ",
+        Enum = "󰕘",
+        Interface = "󰕘",
+        Function = "󰊕 ",
+        Variable = "󰆧 ",
+        Constant = "󰏿 ",
+        String = "󰀬 ",
+        Number = "󰎠 ",
+        Boolean = "◩ ",
+        Array = "󰅪 ",
+        Object = "󰅩 ",
+        Key = "󰌋 ",
+        Null = "󰟢 ",
+        EnumMember = " ",
+        Struct = "󰌗 ",
+        Event = " ",
+        Operator = "󰆕 ",
+        TypeParameter = "󰊄 "
       }
     })
 
@@ -109,7 +110,7 @@ return {
         "Type [D]efinition")
       nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols,
         "[D]ocument [S]ymbols")
-      nmap("K", require("hover").hover, "Hover Documentation")
+      nmap("K", vim.lsp.buf.hover, "Hover Documentation")
       nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
       vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)

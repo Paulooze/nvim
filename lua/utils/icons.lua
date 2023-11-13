@@ -33,7 +33,7 @@ return {
     TypeParameter = "",
     Unit = "",
     Value = "",
-    Variable = "",
+    Variable = ""
   },
   git = {
     LineAdded = "",
@@ -49,7 +49,7 @@ return {
     Diff = "",
     Repo = "",
     Octoface = "",
-    Branch = "",
+    Branch = ""
   },
   ui = {
     ArrowCircleDown = "",
@@ -126,7 +126,7 @@ return {
     TriangleShortArrowDown = "",
     TriangleShortArrowLeft = "",
     TriangleShortArrowRight = "",
-    TriangleShortArrowUp = "",
+    TriangleShortArrowUp = ""
   },
   diagnostics = {
     BoldError = "",
@@ -140,7 +140,7 @@ return {
     BoldHint = "",
     Hint = "󰌶",
     Debug = "",
-    Trace = "✎",
+    Trace = "✎"
   },
   misc = {
     Robot = "󰚩",
@@ -150,5 +150,6 @@ return {
     Smiley = "",
     Package = "",
     CircuitBoard = "",
-  },
+    Vim = ""
+  }
 }

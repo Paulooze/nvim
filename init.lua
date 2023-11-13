@@ -16,7 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ import = "plugins" })
 
-if vim.g.neovide then vim.o.guifont = "Monaspace_Argon_Var:h12" end
+if vim.g.neovide then
+  vim.o.guifont = "Monaspace_Argon_Var:h12"
+  vim.g.neovide_refresh_rate = 90
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_antialiasing = true
+  vim.g.neovide_no_idle = true
+end
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2

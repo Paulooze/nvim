@@ -62,16 +62,12 @@ local mappings = {
   ["o"] = { "<cmd>Telescope projections<CR>", "Telescope projections" },
   b = {
     name = "Buffers",
-    j = { "<cmd>BufferLinePick<cr>", "Jump" },
+    j = { "<Plug>(cokeline-pick-focus)", "Jump" },
     f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
-    b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
-    n = { "<cmd>BufferLineCycleNext<cr>", "Next" },
+    b = { "<Plug>(cokeline-focus-prev)", "Previous" },
+    n = { "<Plug>(cokeline-focus-next)", "Next" },
     W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
-    e = { "<cmd>BufferLinePickClose<cr>", "Pick which buffer to close" },
-    h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
-    l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
-    D = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
-    L = { "<cmd>BufferLineSortByExtension<cr>", "Sort by language" }
+    e = { "<Plug>(cokeline-pick-close)", "Pick which buffer to close" }
   },
   x = {
     name = "Trouble",

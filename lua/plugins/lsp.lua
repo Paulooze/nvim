@@ -1,14 +1,16 @@
 local icons = require("utils.icons")
 
 return {
-  "williamboman/mason-lspconfig.nvim",
-  dependencies = {
-    "williamboman/mason.nvim", "jay-babu/mason-null-ls.nvim",
-    "nvimtools/none-ls.nvim", "neovim/nvim-lspconfig", "folke/neodev.nvim",
-    "hinell/lsp-timeout.nvim"
-  },
+  {
+    "folke/neodev.nvim",
+    config = function() require('neodev').setup() end,
+    event = "VeryLazy"
+  }, {
+  'williamboman/mason-lspconfig.nvim',
+  event = "VeryLazy",
+  dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
   config = function()
-    require("mason").setup({
+    require('mason').setup({
       ui = {
         icons = {
           package_installed = "",
@@ -18,23 +20,6 @@ return {
       }
     })
     require("mason-lspconfig").setup()
-    require("mason-null-ls").setup({
-      ensure_installed = { "eslint_d", "prettierd" },
-      automatic_installation = true,
-      handlers = {}
-    })
-    require("null-ls").setup({
-      on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end
-          })
-        end
-      end
-    })
-    require('neodev').setup();
 
     local mason_lspconfig = require("mason-lspconfig")
     local servers = {
@@ -125,8 +110,8 @@ return {
         end
       end
 
-      set_handler_opts_if_not_set("textDocument/hover", vim.lsp.handlers.hover,
-        { border = "rounded" })
+      set_handler_opts_if_not_set("textDocument/hover",
+        vim.lsp.handlers.hover, { border = "rounded" })
       set_handler_opts_if_not_set("textDocument/signatureHelp",
         vim.lsp.handlers.signature_help,
         { border = "rounded" })
@@ -156,6 +141,31 @@ return {
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
+  end
+}, {
+  "jay-babu/mason-null-ls.nvim",
+  event = "VeryLazy",
+  dependencies = { "nvimtools/none-ls.nvim" },
+  config = function()
+    require("mason-null-ls").setup({
+      ensure_installed = { "eslint_d", "prettierd" },
+      automatic_installation = true,
+      handlers = {}
+    })
+    require("null-ls").setup({
+      on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_clear_autocmds({ buffer = bufnr })
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format({ bufnr = bufnr })
+            end
+          })
+        end
+      end
+    })
   end,
   event = 'VeryLazy'
+}
 }

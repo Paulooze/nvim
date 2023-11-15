@@ -35,11 +35,11 @@ return {
         bg = function() return get_hex('ColorColumn', 'bg') end
       },
       components = {
-        { text = ' ', bg = get_hex('Normal', 'bg') },
         {
-          text = '',
-          fg = get_hex('ColorColumn', 'bg'),
-          bg = get_hex('Normal', 'bg')
+          text = function(buffer)
+            return buffer.index == 1 and ' ' or ''
+          end,
+          hl = { bg = get_hex('Normal', 'bg') }
         }, {
         text = function(buffer)
           return (is_picking_focus() or is_picking_close()) and
@@ -80,12 +80,7 @@ return {
       }, { text = '  ' }, {
         text = icons.ui.Close,
         on_click = function(_, _, _, _, buffer) buffer:delete() end
-      },
-        {
-          text = '',
-          fg = get_hex('ColorColumn', 'bg'),
-          bg = get_hex('Normal', 'bg')
-        }
+      }, { text = ' ', hl = { bg = get_hex('Normal', 'bg') } }
       },
       sidebar = {
         filetype = { "NvimTree" },

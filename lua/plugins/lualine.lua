@@ -1,18 +1,5 @@
 local icons = require("utils.icons")
-local colors = {
-  bg = "#202328",
-  fg = "#bbc2cf",
-  yellow = "#ECBE7B",
-  cyan = "#008080",
-  darkblue = "#081633",
-  green = "#98be65",
-  orange = "#FF8800",
-  violet = "#a9a1e1",
-  magenta = "#c678dd",
-  purple = "#c678dd",
-  blue = "#51afef",
-  red = "#ec5f67"
-}
+local colors = require('tokyonight.colors').setup()
 
 return {
   "nvim-lualine/lualine.nvim",
@@ -21,7 +8,7 @@ return {
     require("lualine").setup({
       options = {
         icons_enabled = true,
-        theme = "nordic",
+        theme = "tokyonight",
         ignore_focus = {},
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
@@ -43,9 +30,9 @@ return {
             },
             padding = { left = 2, right = 1 },
             diff_color = {
-              added = { fg = colors.green },
-              modified = { fg = colors.yellow },
-              removed = { fg = colors.red }
+              added = { fg = colors.git.add },
+              modified = { fg = colors.git.change },
+              removed = { fg = colors.git.delete }
             },
             cond = nil
           }
@@ -70,7 +57,9 @@ return {
 
             -- add client
             for _, client in pairs(buf_clients) do
-              table.insert(buf_client_names, client.name)
+              if (client.name ~= 'null-ls') then
+                table.insert(buf_client_names, client.name)
+              end
             end
 
             local unique_client_names = table.concat(buf_client_names, ", ")
@@ -79,7 +68,7 @@ return {
 
             return language_servers
           end,
-          color = { gui = "bold" }
+          padding = { right = 2, left = 2 }
         }, {
           function()
             local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
@@ -92,22 +81,7 @@ return {
         lualine_z = { "location" }
       },
       tabline = {},
-      extensions = {},
-      winbar = {
-        lualine_c = {
-          {
-            function()
-              local navic = require("nvim-navic")
-              return navic.get_location()
-            end,
-            cond = function()
-              local navic = require("nvim-navic")
-              return navic.is_available()
-            end,
-            draw_empty = true
-          }
-        }
-      }
+      extensions = {}
     })
   end
 }

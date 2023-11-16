@@ -14,14 +14,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({ import = "plugins" })
+require("lazy").setup({import = "plugins"})
 
 if vim.g.neovide then
   vim.o.guifont = "Monaspace_Argon_Var:h12"
   vim.g.neovide_refresh_rate = 90
-  vim.g.neovide_cursor_animation_length = 0
-  vim.g.neovide_cursor_antialiasing = true
-  vim.g.neovide_no_idle = true
 end
 
 vim.opt.tabstop = 2
@@ -43,11 +40,11 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = "menuone,noselect"
 
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+vim.keymap.set({"n", "v"}, "<Space>", "<Nop>", {silent = true})
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'",
-  { expr = true, silent = true })
+               {expr = true, silent = true})
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'",
-  { expr = true, silent = true })
+               {expr = true, silent = true})
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
@@ -59,12 +56,12 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 vim.api.nvim_create_user_command("BufferKill", function()
   require("utils.buffers").buf_kill("bd")
-end, { force = true })
+end, {force = true})
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", {})
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
-    vim.highlight.on_yank({ higroup = "Search", timeout = 100 })
+    vim.highlight.on_yank({higroup = "Search", timeout = 100})
   end,
   group = highlight_group,
   pattern = "*"

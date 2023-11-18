@@ -1,6 +1,6 @@
 return {
   {'AlexvZyl/nordic.nvim', lazy = false}, {
-    "folke/tokyonight.nvim",
+    'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
     opts = {},

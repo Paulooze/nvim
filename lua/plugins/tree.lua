@@ -1,11 +1,11 @@
-local icons = require("utils.icons")
+local icons = require('utils.icons')
 
 local function nvim_tree_on_attach(bufnr)
-  local api = require("nvim-tree.api")
+  local api = require('nvim-tree.api')
 
   local function opts(desc)
     return {
-      desc = "nvim-tree: " .. desc,
+      desc = 'nvim-tree: ' .. desc,
       buffer = bufnr,
       noremap = true,
       silent = true,
@@ -15,34 +15,34 @@ local function nvim_tree_on_attach(bufnr)
 
   api.config.mappings.default_on_attach(bufnr)
 
-  vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
-  vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+  vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
+  vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
 end
 
 return {
-  "nvim-tree/nvim-tree.lua",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  'nvim-tree/nvim-tree.lua',
+  dependencies = {'nvim-tree/nvim-web-devicons'},
   config = function()
-    require("nvim-tree").setup({
+    require('nvim-tree').setup({
       renderer = {
         add_trailing = false,
         group_empty = false,
         highlight_git = true,
         full_name = false,
-        highlight_opened_files = "none",
-        root_folder_label = ":t",
+        highlight_opened_files = 'none',
+        root_folder_label = ':t',
         indent_width = 2,
         indent_markers = {
           enable = false,
           inline_arrows = true,
-          icons = { corner = "└", edge = "│", item = "│", none = " " }
+          icons = {corner = '└', edge = '│', item = '│', none = ' '}
         },
         icons = {
           webdev_colors = true,
-          git_placement = "before",
-          padding = " ",
-          symlink_arrow = " ➛ ",
-          show = { file = true, folder = true, folder_arrow = true, git = true },
+          git_placement = 'before',
+          padding = ' ',
+          symlink_arrow = ' ➛ ',
+          show = {file = true, folder = true, folder_arrow = true, git = true},
           glyphs = {
             default = icons.ui.Text,
             symlink = icons.ui.FileSymlink,
@@ -69,11 +69,11 @@ return {
           }
         },
         special_files = {
-          "Cargo.toml", "Makefile", "README.md", "readme.md", "package.json"
+          'Cargo.toml', 'Makefile', 'README.md', 'readme.md', 'package.json'
         },
         symlink_destination = true
       },
-      hijack_directories = { enable = false, auto_open = true },
+      hijack_directories = {enable = false, auto_open = true},
       update_focused_file = {
         enable = true,
         debounce_delay = 15,
@@ -100,7 +100,7 @@ return {
         dotfiles = false,
         git_clean = false,
         no_buffer = false,
-        custom = { "node_modules", "\\.cache" },
+        custom = {'node_modules', '\\.cache'},
         exclude = {}
       },
       filesystem_watchers = {
@@ -117,15 +117,15 @@ return {
       },
       actions = {
         use_system_clipboard = true,
-        change_dir = { enable = true, global = false, restrict_above_cwd = false },
-        expand_all = { max_folder_discovery = 300, exclude = {} },
+        change_dir = {enable = true, global = false, restrict_above_cwd = false},
+        expand_all = {max_folder_discovery = 300, exclude = {}},
         file_popup = {
           open_win_config = {
             col = 1,
             row = 1,
-            relative = "cursor",
-            border = "shadow",
-            style = "minimal"
+            relative = 'cursor',
+            border = 'shadow',
+            style = 'minimal'
           }
         },
         open_file = {
@@ -133,22 +133,22 @@ return {
           resize_window = false,
           window_picker = {
             enable = true,
-            picker = "default",
-            chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+            picker = 'default',
+            chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
             exclude = {
               filetype = {
-                "notify", "lazy", "qf", "diff", "fugitive", "fugitiveblame"
+                'notify', 'lazy', 'qf', 'diff', 'fugitive', 'fugitiveblame'
               },
-              buftype = { "nofile", "terminal", "help" }
+              buftype = {'nofile', 'terminal', 'help'}
             }
           }
         },
-        remove_file = { close_window = true }
+        remove_file = {close_window = true}
       },
-      trash = { cmd = "trash", require_confirm = true },
-      live_filter = { prefix = "[FILTER]: ", always_show_folders = true },
-      tab = { sync = { open = false, close = false, ignore = {} } },
-      notify = { threshold = vim.log.levels.INFO },
+      trash = {cmd = 'trash', require_confirm = true},
+      live_filter = {prefix = '[FILTER]: ', always_show_folders = true},
+      tab = {sync = {open = false, close = false, ignore = {}}},
+      notify = {threshold = vim.log.levels.INFO},
       log = {
         enable = false,
         truncate = false,
@@ -163,7 +163,7 @@ return {
           watcher = false
         }
       },
-      system_open = { cmd = nil, args = {} },
+      system_open = {cmd = nil, args = {}},
       on_attach = nvim_tree_on_attach
     })
   end,

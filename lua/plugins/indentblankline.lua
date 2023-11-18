@@ -1,6 +1,6 @@
 return {
-  "lukas-reineke/indent-blankline.nvim",
+  'lukas-reineke/indent-blankline.nvim',
   event = 'VeryLazy',
-  main = "ibl",
-  opts = { scope = { enabled = true } }
+  main = 'ibl',
+  opts = {scope = {enabled = true}}
 }

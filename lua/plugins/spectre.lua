@@ -1,1 +1,1 @@
-return { "nvim-pack/nvim-spectre", event = "VeryLazy" }
+return {'nvim-pack/nvim-spectre', event = 'VeryLazy'}

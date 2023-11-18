@@ -1,1 +1,1 @@
-return { "lambdalisue/suda.vim", lazy = false }
+return {'lambdalisue/suda.vim', lazy = false}

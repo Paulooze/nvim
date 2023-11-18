@@ -1,4 +1,4 @@
-local icons = require("utils.icons")
+local icons = require('utils.icons')
 
 return {
   'hrsh7th/nvim-cmp',
@@ -12,16 +12,16 @@ return {
     luasnip.config.setup()
     cmp.setup({
       enabled = true,
-      snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+      snippet = {expand = function(args) luasnip.lsp_expand(args.body) end},
       formatting = {
         format = function(_, vim_item)
-          vim_item.kind = (icons.kind[vim_item.kind] or '') .. " " ..
-              vim_item.kind
+          vim_item.kind = (icons.kind[vim_item.kind] or '') .. ' ' ..
+                            vim_item.kind
           return vim_item
         end
       },
-      snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
-      completion = { completeopt = 'menu,menuone,insert' },
+      snippet = {expand = function(args) luasnip.lsp_expand(args.body) end},
+      completion = {completeopt = 'menu,menuone,insert'},
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered()
@@ -31,20 +31,20 @@ return {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true })
+        ['<CR>'] = cmp.mapping.confirm({select = true})
       }),
       sources = cmp.config.sources({
-        { name = 'nvim_lsp' }, { name = 'luasnip' }, { name = 'buffer' }
-      }, { { name = 'buffer' } })
+        {name = 'nvim_lsp'}, {name = 'luasnip'}, {name = 'buffer'}
+      }, {{name = 'buffer'}})
     })
 
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
+      sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
     })
-    cmp.setup.cmdline({ '/', '?' }, {
+    cmp.setup.cmdline({'/', '?'}, {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = { { name = 'buffer' } }
+      sources = {{name = 'buffer'}}
     })
   end,
   event = 'VeryLazy'

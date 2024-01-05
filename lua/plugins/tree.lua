@@ -21,7 +21,7 @@ end
 
 return {
   'nvim-tree/nvim-tree.lua',
-  dependencies = {'nvim-tree/nvim-web-devicons'},
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     require('nvim-tree').setup({
       renderer = {
@@ -35,14 +35,14 @@ return {
         indent_markers = {
           enable = false,
           inline_arrows = true,
-          icons = {corner = '└', edge = '│', item = '│', none = ' '}
+          icons = { corner = '└', edge = '│', item = '│', none = ' ' }
         },
         icons = {
           webdev_colors = true,
           git_placement = 'before',
           padding = ' ',
           symlink_arrow = ' ➛ ',
-          show = {file = true, folder = true, folder_arrow = true, git = true},
+          show = { file = true, folder = true, folder_arrow = true, git = true },
           glyphs = {
             default = icons.ui.Text,
             symlink = icons.ui.FileSymlink,
@@ -73,7 +73,7 @@ return {
         },
         symlink_destination = true
       },
-      hijack_directories = {enable = false, auto_open = true},
+      hijack_directories = { enable = false, auto_open = true },
       update_focused_file = {
         enable = true,
         debounce_delay = 15,
@@ -100,7 +100,7 @@ return {
         dotfiles = false,
         git_clean = false,
         no_buffer = false,
-        custom = {'node_modules', '\\.cache'},
+        custom = { 'node_modules', '\\.cache' },
         exclude = {}
       },
       filesystem_watchers = {
@@ -117,8 +117,8 @@ return {
       },
       actions = {
         use_system_clipboard = true,
-        change_dir = {enable = true, global = false, restrict_above_cwd = false},
-        expand_all = {max_folder_discovery = 300, exclude = {}},
+        change_dir = { enable = true, global = false, restrict_above_cwd = false },
+        expand_all = { max_folder_discovery = 300, exclude = {} },
         file_popup = {
           open_win_config = {
             col = 1,
@@ -139,16 +139,16 @@ return {
               filetype = {
                 'notify', 'lazy', 'qf', 'diff', 'fugitive', 'fugitiveblame'
               },
-              buftype = {'nofile', 'terminal', 'help'}
+              buftype = { 'nofile', 'terminal', 'help' }
             }
           }
         },
-        remove_file = {close_window = true}
+        remove_file = { close_window = true }
       },
-      trash = {cmd = 'trash', require_confirm = true},
-      live_filter = {prefix = '[FILTER]: ', always_show_folders = true},
-      tab = {sync = {open = false, close = false, ignore = {}}},
-      notify = {threshold = vim.log.levels.INFO},
+      trash = { cmd = 'trash', require_confirm = true },
+      live_filter = { prefix = '[FILTER]: ', always_show_folders = true },
+      tab = { sync = { open = false, close = false, ignore = {} } },
+      notify = { threshold = vim.log.levels.INFO },
       log = {
         enable = false,
         truncate = false,
@@ -163,7 +163,7 @@ return {
           watcher = false
         }
       },
-      system_open = {cmd = nil, args = {}},
+      system_open = { cmd = nil, args = {} },
       on_attach = nvim_tree_on_attach
     })
   end,

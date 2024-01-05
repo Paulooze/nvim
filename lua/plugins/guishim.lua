@@ -1,1 +1,1 @@
-return {'equalsraf/neovim-gui-shim'}
+return { 'equalsraf/neovim-gui-shim' }

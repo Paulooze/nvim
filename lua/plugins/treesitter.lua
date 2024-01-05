@@ -1,6 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'},
+  dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
   config = function()
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
@@ -11,9 +11,8 @@ return {
       sync_install = false,
       ignore_install = {},
       auto_install = true,
-      highlight = {enable = true},
-      indent = {enable = true},
-      autotag = true,
+      highlight = { enable = true },
+      indent = { enable = true },
       filetypes = {
         'html', 'javascript', 'javascriptreact', 'typescript',
         'typescriptreact', 'xml'

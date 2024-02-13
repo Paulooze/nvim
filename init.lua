@@ -8,7 +8,7 @@ vim.g.suda_smart_edit = 1
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 print(lazypath)
 if not vim.loop.fs_stat(lazypath) then
-  vim.system({
+  vim.fn.system({
     'git', 'clone', '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath
   })
@@ -23,7 +23,6 @@ require('lazy').setup({
 if vim.g.neovide then
   vim.o.guifont = 'CaskaydiaCove Nerd Font Mono:h12'
   vim.g.neovide_refresh_rate = 90
-  vim.g.neovide_scale_factor = 0.66
 end
 
 vim.opt.tabstop = 2

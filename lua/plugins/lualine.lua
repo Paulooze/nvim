@@ -16,9 +16,9 @@ return {
         refresh = { statusline = 1000, tabline = 1000, winbar = 1000 }
       },
       sections = {
-        lualine_a = { { 'mode', icons_enabled = true, icon = '' } },
+        lualine_a = { { 'mode', icons_enabled = true, icon = '', separator = { right = icons.ui.BoldDividerRight } } },
         lualine_b = {
-          { 'b:gitsigns_head', icon = icons.git.Branch, color = { gui = 'bold' } }
+          { 'b:gitsigns_head', icon = icons.git.Branch, color = { gui = 'bold' }, separator = { right = icons.ui.BoldDividerRight } }
         },
         lualine_c = {
           {
@@ -35,7 +35,8 @@ return {
               removed = { fg = colors.git.delete }
             },
             cond = nil
-          }
+          },
+          {'filename'}
         },
         lualine_x = {
           {
@@ -77,8 +78,8 @@ return {
           padding = 1
         }, { 'filetype', cond = nil, padding = { left = 1, right = 1 } }
         },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' }
+        lualine_y = { {'progress', separator = { left = icons.ui.BoldDividerLeft }} },
+        lualine_z = { {'location', separator = { left = icons.ui.BoldDividerLeft }} }
       },
       tabline = {},
       extensions = {}

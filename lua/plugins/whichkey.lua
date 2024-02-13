@@ -82,7 +82,7 @@ local mappings = {
   },
   g = {
     name = 'Git',
-    g = { '<cmd>lua require("utils.lazygit").lazygit_toggle()<cr>', 'Lazygit' },
+    g = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
     j = {
       '<cmd>lua require("gitsigns").next_hunk({navigation_message = false})<cr>',
       'Next Hunk'

@@ -1,5 +1,5 @@
 local icons = require('utils.icons')
-local colors = require('tokyonight.colors').setup()
+local colors = require('onedark.palette')
 
 return {
   'nvim-lualine/lualine.nvim',
@@ -8,7 +8,7 @@ return {
     require('lualine').setup({
       options = {
         icons_enabled = true,
-        theme = 'tokyonight',
+        theme = 'onedark',
         ignore_focus = {},
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
@@ -30,9 +30,9 @@ return {
             },
             padding = { left = 2, right = 1 },
             diff_color = {
-              added = { fg = colors.git.add },
-              modified = { fg = colors.git.change },
-              removed = { fg = colors.git.delete }
+              added = { fg = colors.cool.green },
+              modified = { fg = colors.cool.yellow },
+              removed = { fg = colors.cool.red }
             },
             cond = nil
           },

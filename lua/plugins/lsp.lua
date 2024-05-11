@@ -4,7 +4,9 @@ return {
   { 'folke/neodev.nvim', lazy = true }, {
   'williamboman/mason-lspconfig.nvim',
   event = 'VeryLazy',
-  dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
+  dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig', 'akinsho/flutter-tools.nvim',
+    'nvim-lua/plenary.nvim',
+    'stevearc/dressing.nvim', },
   config = function()
     require('neodev').setup()
     require('mason').setup({
@@ -21,8 +23,9 @@ return {
     local mason_lspconfig = require('mason-lspconfig')
     local servers = {
       rust_analyzer = {},
-      tsserver = {},
+      eslint = {},
       graphql = {},
+      tsserver = {},
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       lua_ls = {
         Lua = {
@@ -83,6 +86,12 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'rounded'
     end
 
+    require('flutter-tools').setup({
+      lsp = {
+        color = { enabled = true },
+      }
+    })
+
     mason_lspconfig.setup_handlers({
       function(server_name)
         require('lspconfig')[server_name].setup({
@@ -111,7 +120,6 @@ return {
   dependencies = { 'nvimtools/none-ls.nvim' },
   config = function()
     require('mason-null-ls').setup({
-      ensure_installed = { 'eslint_d', 'prettierd' },
       automatic_installation = true,
       handlers = {}
     })

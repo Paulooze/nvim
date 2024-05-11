@@ -82,6 +82,7 @@ local mappings = {
   },
   g = {
     name = 'Git',
+    f = { '<cmd>Fugit2<cr>', 'Open Diffview' },
     g = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
     j = {
       '<cmd>lua require("gitsigns").next_hunk({navigation_message = false})<cr>',

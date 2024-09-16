@@ -1,5 +1,4 @@
 local icons = require('utils.icons')
-local colors = require('onedark.palette')
 
 return {
   'nvim-lualine/lualine.nvim',
@@ -8,17 +7,18 @@ return {
     require('lualine').setup({
       options = {
         icons_enabled = true,
-        theme = 'onedark',
+        theme = 'spaceduck',
         ignore_focus = {},
         component_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
+        -- section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         globalstatus = true,
         refresh = { statusline = 1000, tabline = 1000, winbar = 1000 }
       },
       sections = {
-        lualine_a = { { 'mode', icons_enabled = true, icon = '', separator = { right = icons.ui.BoldDividerRight } } },
+        lualine_a = { { 'mode', icons_enabled = true, icon = '', separator = { left = '', right = '' }, right_padding = 2 } },
         lualine_b = {
-          { 'b:gitsigns_head', icon = icons.git.Branch, color = { gui = 'bold' }, separator = { right = icons.ui.BoldDividerRight } }
+          { 'b:gitsigns_head', icon = icons.git.Branch, color = { gui = 'bold' }, }
         },
         lualine_c = {
           {
@@ -30,13 +30,12 @@ return {
             },
             padding = { left = 2, right = 1 },
             diff_color = {
-              added = { fg = colors.cool.green },
-              modified = { fg = colors.cool.yellow },
-              removed = { fg = colors.cool.red }
+              added = { fg = '#5ccc96' },
+              modified = { fg = '#f2ce00' },
+              removed = { fg = '#e33400' }
             },
             cond = nil
-          },
-          {'filename'}
+          }
         },
         lualine_x = {
           {
@@ -53,7 +52,6 @@ return {
             local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
             if #buf_clients == 0 then return 'LSP Inactive' end
 
-            local buf_ft = vim.bo.filetype
             local buf_client_names = {}
 
             -- add client
@@ -72,14 +70,14 @@ return {
           padding = { right = 2, left = 2 }
         }, {
           function()
-            local shiftwidth = vim.api.nvim_buf_get_option(0, 'shiftwidth')
+            local shiftwidth = vim.api.nvim_get_option_value('shiftwidth', { buf = 0 })
             return icons.ui.Tab .. ' ' .. shiftwidth
           end,
           padding = 1
         }, { 'filetype', cond = nil, padding = { left = 1, right = 1 } }
         },
-        lualine_y = { {'progress', separator = { left = icons.ui.BoldDividerLeft }} },
-        lualine_z = { {'location', separator = { left = icons.ui.BoldDividerLeft }} }
+        lualine_y = { { 'progress', } },
+        lualine_z = { { 'location', separator = { right = '' }, left_padding = 2 } }
       },
       tabline = {},
       extensions = {}

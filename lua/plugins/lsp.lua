@@ -46,7 +46,7 @@ return {
     local on_attach = function(_, bufnr)
       local nmap = function(keys, func, desc)
         if desc then desc = 'LSP: ' .. desc end
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc, noremap = true, silent = true })
       end
 
       nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -84,6 +84,17 @@ return {
         { border = 'rounded' })
 
       require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          end
+        end
+      })
     end
 
     require('flutter-tools').setup({
@@ -94,6 +105,9 @@ return {
 
     mason_lspconfig.setup_handlers({
       function(server_name)
+        if server_name == 'tsserver' then
+            server_name = 'ts_ls'
+        end
         require('lspconfig')[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,

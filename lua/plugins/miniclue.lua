@@ -9,8 +9,8 @@ return {
         { mode = 'i', keys = '<C-x>' },
 
         -- `g` key
-        { mode = 'n', keys = 'g' },
-        { mode = 'x', keys = 'g' },
+        -- { mode = 'n', keys = 'g' },
+        -- { mode = 'x', keys = 'g' },
 
         -- Marks
         { mode = 'n', keys = "'" },

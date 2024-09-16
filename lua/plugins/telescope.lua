@@ -11,7 +11,11 @@ return {
   },
   config = function()
     require('telescope').setup({
-      defaults = { mappings = { i = { ['<C-u>'] = false, ['<C-d>'] = false } } },
+      defaults = {
+        mappings = { i = { ['<C-u>'] = false, ['<C-d>'] = false } },
+        prompt_prefix = ' 🔍 ',
+        selection_caret = "󱞩 ",
+      },
       extensions = { import = { insert_at_top = true } }
     })
 

@@ -1,5 +1,5 @@
 if exists(':GuiFont')
-  GuiFont CaskaydiaCove Nerd Font Mono:h12
+  GuiFont Hack Nerd Font Mono:h11
 endif
 
 if exists(":GuiTabline")

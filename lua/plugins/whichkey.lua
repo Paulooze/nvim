@@ -1,189 +1,71 @@
-local icons = require('utils.icons')
-
-local setup = {
-  plugins = {
-    marks = false,
-    registers = false,
-    spelling = { enabled = true, suggestions = 20 },
-    presets = {
-      operators = false,
-      motions = false,
-      text_objects = false,
-      windows = false,
-      nav = false,
-      z = false,
-      g = false
-    }
-  },
-  operators = { gc = 'Comments' },
-  key_labels = {},
-  icons = {
-    breadcrumb = icons.ui.DoubleChevronRight,
-    separator = icons.ui.BoldArrowRight,
-    group = icons.ui.Plus
-  },
-  popup_mappings = { scroll_down = '<c-d>', scroll_up = '<c-u>' },
-  window = {
-    border = 'single',
-    position = 'bottom',
-    margin = { 1, 0, 1, 0 },
-    padding = { 2, 2, 2, 2 },
-    winblend = 0
-  },
-  layout = {
-    height = { min = 4, max = 25 },
-    width = { min = 20, max = 50 },
-    spacing = 3,
-    align = 'left'
-  },
-  ignore_missing = true,
-  hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ ' },
-  show_help = true,
-  show_keys = true,
-  triggers = 'auto',
-  triggers_blacklist = { i = { 'j', 'k' }, v = { 'j', 'k' } },
-  disable = { buftypes = {}, filetypes = { 'TelescopePrompt' } }
-}
-
-local mappings = {
-  ['w'] = { '<cmd>w!<CR>', 'Save' },
-  ['q'] = { '<cmd>confirm q<CR>', 'Quit' },
-  ['/'] = {
-    '<Plug>(comment_toggle_linewise_current)', 'Comment toggle current line'
-  },
-  ['c'] = { '<cmd>BufferKill<CR>', 'Close Buffer' },
-  ['f'] = {
-    function() require('telescope.builtin').find_files({ previewer = false }) end,
-    'Find File'
-  },
-  ['h'] = { '<cmd>nohlsearch<CR>', 'No Highlight' },
-  ['e'] = { '<cmd>NvimTreeToggle<CR>', 'Explorer' },
-  ['v'] = { '<cmd>Telescope neoclip<CR>', 'Telescope neoclip' },
-  ['o'] = { '<cmd>Telescope projections<CR>', 'Telescope projections' },
-  b = {
-    name = 'Buffers',
-    j = { '<cmd>BufferLinePick<CR>', 'Jump' },
-    f = { '<cmd>Telescope buffers previewer=false<cr>', 'Find' },
-    b = { '<cmd>BufferLineCyclePrev<CR>', 'Previous' },
-    n = { '<cmd>BufferLineCycleNext<CR>', 'Next' },
-    W = { '<cmd>noautocmd w<cr>', 'Save without formatting (noautocmd)' },
-    e = { '<cmd>BufferLinePickClose<CR>', 'Pick which buffer to close' }
-  },
-  p = {
-    name = 'Plugins',
-    i = { '<cmd>Lazy install<cr>', 'Install' },
-    s = { '<cmd>Lazy sync<cr>', 'Sync' },
-    S = { '<cmd>Lazy clear<cr>', 'Status' },
-    c = { '<cmd>Lazy clean<cr>', 'Clean' },
-    u = { '<cmd>Lazy update<cr>', 'Update' },
-    p = { '<cmd>Lazy profile<cr>', 'Profile' },
-    l = { '<cmd>Lazy log<cr>', 'Log' },
-    d = { '<cmd>Lazy debug<cr>', 'Debug' }
-  },
-  g = {
-    name = 'Git',
-    f = { '<cmd>Fugit2<cr>', 'Open Diffview' },
-    g = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
-    j = {
-      '<cmd>lua require("gitsigns").next_hunk({navigation_message = false})<cr>',
-      'Next Hunk'
-    },
-    k = {
-      '<cmd>lua require("gitsigns").prev_hunk({navigation_message = false})<cr>',
-      'Prev Hunk'
-    },
-    l = { '<cmd>lua require("gitsigns").blame_line()<cr>', 'Blame' },
-    p = { '<cmd>lua require("gitsigns").preview_hunk()<cr>', 'Preview Hunk' },
-    r = { '<cmd>lua require("gitsigns").reset_hunk()<cr>', 'Reset Hunk' },
-    R = { '<cmd>lua require("gitsigns").reset_buffer()<cr>', 'Reset Buffer' },
-    s = { '<cmd>lua require("gitsigns").stage_hunk()<cr>', 'Stage Hunk' },
-    u = {
-      '<cmd>lua require("gitsigns").undo_stage_hunk()<cr>', 'Undo Stage Hunk'
-    },
-    o = { '<cmd>Telescope git_status<cr>', 'Open changed file' },
-    b = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },
-    c = { '<cmd>Telescope git_commits<cr>', 'Checkout commit' },
-    C = { '<cmd>Telescope git_bcommits<cr>', 'Checkout commit(for current file)' },
-    d = { '<cmd>Gitsigns diffthis HEAD<cr>', 'Git Diff' }
-  },
-  l = {
-    name = 'LSP',
-    a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Action' },
-    d = {
-      '<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>',
-      'Buffer Diagnostics'
-    },
-    w = { '<cmd>Telescope diagnostics<cr>', 'Diagnostics' },
-    f = { '<cmd>lua vim.lsp.buf.format()<cr>', 'Format' },
-    i = { '<cmd>LspInfo<cr>', 'Info' },
-    I = { '<cmd>Mason<cr>', 'Mason Info' },
-    j = { '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next Diagnostic' },
-    k = { '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Prev Diagnostic' },
-    l = { '<cmd>lua vim.lsp.codelens.run()<cr>', 'CodeLens Action' },
-    q = { '<cmd>lua vim.diagnostic.setloclist()<cr>', 'Quickfix' },
-    r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename' },
-    s = { '<cmd>Telescope lsp_document_symbols<cr>', 'Document Symbols' },
-    S = {
-      '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Workspace Symbols'
-    },
-    e = { '<cmd>Telescope quickfix<cr>', 'Telescope Quickfix' }
-  },
-  s = {
-    name = 'Search',
-    b = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },
-    c = { '<cmd>Telescope colorscheme<cr>', 'Colorscheme' },
-    f = { '<cmd>Telescope find_files<cr>', 'Find File' },
-    h = { '<cmd>Telescope help_tags<cr>', 'Find Help' },
-    H = { '<cmd>Telescope highlights<cr>', 'Find highlight groups' },
-    M = { '<cmd>Telescope man_pages<cr>', 'Man Pages' },
-    r = { '<cmd>Telescope oldfiles<cr>', 'Open Recent File' },
-    R = { '<cmd>Telescope registers<cr>', 'Registers' },
-    t = { '<cmd>Telescope live_grep<cr>', 'Text' },
-    k = { '<cmd>Telescope keymaps<cr>', 'Keymaps' },
-    C = { '<cmd>Telescope commands<cr>', 'Commands' },
-    l = { '<cmd>Telescope resume<cr>', 'Resume last search' },
-    p = {
-      '<cmd>lua require("telescope.builtin").colorscheme({enable_preview = true})<cr>',
-      'Colorscheme with Preview'
-    }
-  },
-  T = { name = 'Treesitter', i = { ':TSConfigInfo<cr>', 'Info' } }
-}
-local options = {
-  mode = 'n',
-  prefix = '<leader>',
-  buffer = nil,
-  silent = true,
-  noremap = true,
-  nowait = true
-}
-local vmappings = {
-  ['/'] = {
-    '<Plug>(comment_toggle_linewise_visual)', 'Comment toggle linewise (visual)'
-  },
-  l = {
-    name = 'LSP',
-    a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Action' }
-  }
-}
-local voptions = {
-  mode = 'v',
-  prefix = '<leader>',
-  buffer = nil,
-  silent = true,
-  noremap = true,
-  nowait = true
-}
-
 return {
   'folke/which-key.nvim',
-  opts = {},
-  config = function()
-    local which_key = require('which-key')
-
-    which_key.setup(setup)
-    which_key.register(mappings, options)
-    which_key.register(vmappings, voptions)
-  end,
+  opts = {
+    preset = 'modern'
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+    {
+      '<leader>w',
+      '<cmd>w!<CR>',
+      desc = 'Save'
+    },
+    {
+      '<leader>q',
+      '<cmd>confirm q<CR>',
+      desc = 'Quit'
+    },
+    {
+      '<leader>/',
+      '<Plug>(comment_toggle_linewise_current)',
+      desc = 'Comment toggle current line'
+    },
+    {
+      '<leader>c',
+      '<cmd>BufferKill<CR>',
+      desc = 'Close current buffer'
+    },
+    { "<leader>f",  "<cmd>Telescope find_files<cr>",                    desc = "Find File",                                   mode = "n" },
+    { '<leader>h',  '<cmd>nohlsearch<CR>',                              desc = 'No highlight' },
+    { '<leader>e',  '<cmd>NvimTreeToggle<CR>',                          desc = 'Explorer' },
+    { '<leader>v',  '<cmd>Telescope neoclip<CR>',                       desc = 'Telescope neoclip' },
+    { '<leader>o',  '<cmd>Telescope projections<CR>',                       desc = 'Telescope projections' },
+    -- Buffers
+    { '<leader>b',  desc = 'buffers' },
+    { '<leader>bj', '<cmd>BufferLinePick<CR>',                          desc = 'Buffers: Jump to buffer' },
+    { '<leader>bf', '<cmd>Telescope buffers previewer=false<CR>',       desc = 'Buffers: Find open buffer' },
+    { '<leader>bb', '<cmd>BufferLineCyclePrev<CR>',                     desc = 'Buffers: Jump to previous buffer' },
+    { '<leader>bn', '<cmd>BufferLineCycleNext<CR>',                     desc = 'Buffers: Jump to next buffer' },
+    { '<leader>bw', '<cmd>noautocmd w<CR>',                             desc = 'Buffers: Save without formatting (noautocmd)' },
+    { '<leader>be', '<cmd>BufferLinePickClose',                         desc = 'Buffers: Pick buffer to close' },
+    -- LSP
+    { '<leader>l',  desc = 'LSP' },
+    { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>',           desc = 'Code action' },
+    { '<leader>ld', '<cmd>Telescope diagnostics bufnr=0<CR>',           desc = 'Buffer diagnostics' },
+    { '<leader>lw', '<cmd>Telescope diagnostics<CR>',                   desc = 'Workspace diagnostics' },
+    { '<leader>lf', '<cmd>lua vim.lsp.buf.format()<CR>',                desc = 'Format' },
+    { '<leader>lj', '<cmd>lua vim.diagnostic.goto_next()<CR>',          desc = 'Next diagnostic' },
+    { '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev()<CR>',          desc = 'Previous diagnostic' },
+    { '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<CR>',              desc = 'Codelens actions' },
+    { '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>',         desc = 'Quickfix' },
+    { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>',                desc = 'Rename' },
+    { '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>',          desc = 'Document symbols' },
+    { '<leader>lS', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace symbols' },
+    { '<leader>le', '<cmd>Telescope quickfix<CR>',                      desc = 'Telescope quickfix' },
+    -- Search
+    { "<leader>sf", "<cmd>Telescope find_files<cr>",                    desc = "Find File",                                   mode = "n" },
+    { '<leader>sr', '<cmd>Telescope oldfiles<CR>',                      desc = 'Open recent files' },
+    { '<leader>st', '<cmd>Telescope live_grep<CR>',                     desc = 'Search text' },
+    { '<leader>sl', '<cmd>Telescope resume<CR>',                        desc = 'Resume last search' },
+    { '<leader>sC', '<cmd>Telescope commands<CR>',                      desc = 'Commands' },
+    { '<leader>sR', '<cmd>Telescope registers<CR>',                     desc = 'Registers' },
+    { '<leader>sk', '<cmd>Telescope keymaps<CR>',                       desc = 'Keymaps' },
+  },
   event = 'VeryLazy'
 }

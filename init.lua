@@ -21,7 +21,7 @@ require('lazy').setup({
 })
 
 if vim.g.neovide then
-  vim.o.guifont = 'Hack Nerd Font Mono:h12'
+  vim.o.guifont = 'BlexMono Nerd Font:h11'
   vim.g.neovide_refresh_rate = 90
 end
 
